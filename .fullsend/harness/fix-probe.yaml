@@ -1,0 +1,12 @@
+agent: agents/triage.md
+role: triage
+slug: fullsend-ai-fix-probe
+model: opus
+image: ghcr.io/fullsend-ai/fullsend-sandbox:latest
+policy: policies/base.yaml
+trigger: |
+  event.transition.kind == "comment_added"
+  && has(event.entity.linked_change_proposal)
+  && has(event.transition.comment.command)
+  && event.transition.comment.command == "/fs-fix"
+  && event.actor.role == "triage"
